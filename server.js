@@ -31,6 +31,10 @@ app.get('*.js', (req, res, next) => {
   next();
 });
 
+app.get("/service-worker.js", (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'build', "service-worker.js"));
+});
+
 if (process.env.NODE_ENV) {
   app.use(express.static('./client/build'));
   app.get('*', (req, res) => {
