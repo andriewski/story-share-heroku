@@ -25,6 +25,12 @@ mongoose
 app.use('/api/users', users);
 app.use('/api/posts', posts);
 
+app.get('*.js', (req, res, next) => {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
+
 if (process.env.NODE_ENV) {
   app.use(express.static('./client/build'));
   app.get('*', (req, res) => {
